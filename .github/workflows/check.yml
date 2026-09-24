@@ -1,0 +1,20 @@
+name: Check configs
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get the repo's files
+        uses: actions/checkout@v5
+
+      - name: Config file exists
+        run: test -f router1.cfg
+
+      - name: Config has a hostname
+        run: grep '^hostname:' router1.cfg
